@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
     Button button;
     EditText editText;
+    TextView text;
+    String url = "http://www.google.de";
 
     // Boolean that is true if a download is in progress
     private boolean mDownloading = false;
@@ -31,13 +33,23 @@ public class MainActivity extends AppCompatActivity {
 
         button = (Button) findViewById(R.id.connect_button);
         editText = (EditText) findViewById(R.id.textfield_target);
+        text = (TextView) findViewById(R.id.textView01);
 
-        String url = editText.getText().toString();
-        String result;
 
-        HttpAsyncTask getRequest = new HttpAsyncTask();
+        button.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                String url = editText.getText().toString();
+                String result;
 
-        result = getRequest.execute(url).get();
+                HttpAsyncTask getRequest = new HttpAsyncTask();
+
+                result = getRequest.getFinalResult();
+
+                text.setText(result);
+
+            }
+        });
+
 
     }
 

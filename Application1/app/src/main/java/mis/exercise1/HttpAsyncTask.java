@@ -18,6 +18,8 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
     public static final int READ_TIMEOUT = 15000;
     public static final int CONNECTION_TIMEOUT = 15000;
 
+    String finalResult;
+
     @Override
     protected String doInBackground(String... params) {
         String stringUrl = params[0];
@@ -67,6 +69,10 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        super.onPostExecute(s);
+        finalResult = s;
+    }
+
+    public String getFinalResult() {
+        return finalResult;
     }
 }
