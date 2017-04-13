@@ -13,13 +13,15 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 
+// Code adapted from https://developer.android.com/training/basics/network-ops/connecting.html#HeadlessFragment
+
 public class MainActivity extends AppCompatActivity {
 
     Button button;
     EditText editText;
-    HttpURLConnection con;
-    URL url;
 
+    // Boolean that is true if a download is in progress
+    private boolean mDownloading = false;
 
 
     @Override
@@ -30,24 +32,16 @@ public class MainActivity extends AppCompatActivity {
         button = (Button) findViewById(R.id.connect_button);
         editText = (EditText) findViewById(R.id.textfield_target);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        String url = editText.getText().toString();
+        String result;
 
-                try {
+        HttpAsyncTask getRequest = new HttpAsyncTask();
 
-                    url = new URL(editText.getText().toString());
+        result = getRequest.execute(url).get();
 
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-
-
-                } catch (MalformedURLException ex) {
-                    Log.e("http-Test", Log.getStackTraceString(ex));
-                }
-
-
-
-            }
-        });
     }
+
+
+
 }
+
